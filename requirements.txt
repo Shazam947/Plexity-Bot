@@ -2,4 +2,4 @@ pyrogram==2.0.106
 Flask==2.3.3
 pytgcalls==3.0.0.dev22
 requests==2.31.0
-jiosaavn==0.1.4
+jiosaavn==0.1.0
