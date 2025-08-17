@@ -2,5 +2,7 @@ Flask==2.3.3
 pyrogram==2.0.106
 TgCrypto==1.2.5
 py-tgcalls==0.9.7
-yt-dlp==2025.08.11
 requests==2.31.0
+Flask==2.3.3
+jiosaavn==0.1.4
+
