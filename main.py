@@ -19,7 +19,6 @@ SESSION_STRING = os.environ.get("SESSION_STRING", "your_session_string")
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL", "https://your-app.onrender.com")
 
 app = Flask(__name__)
-
 user_client = Client("music_bot_user", session_string=SESSION_STRING)
 pytgcalls = PyTgCalls(user_client)
 playing_chats = {}
@@ -30,13 +29,11 @@ js = JioSaavn()
 class MusicBot:
     async def download_jiosaavn_audio(self, query):
         try:
-            # Search JioSaavn for the song
             results = js.search(query)
             if not results or not results['songs']:
                 return None
             song = results['songs'][0]
-            # Get direct mp3 URL
-            audio_url = song['downloadUrl'][1]  # High quality mp3 url
+            audio_url = song['downloadUrl'][1]
             title = song['song']
             duration = song['duration']
             return {
@@ -64,7 +61,6 @@ class MusicBot:
                 'duration': audio_info['duration'],
                 'url': audio_info['url']
             }
-
             return True
         except Exception as e:
             logger.error(f"Error playing music: {e}")
@@ -99,21 +95,18 @@ async def process_update(update):
                         await send_message(chat_id, "❌ Song Not Found or Can't Play")
                 else:
                     await send_message(chat_id, "❌ Please provide song name!")
-
             elif text.startswith('/stop'):
                 success = await music_bot.stop_music(chat_id)
                 if success:
                     await send_message(chat_id, "⏹️ Music stopped")
                 else:
                     await send_message(chat_id, "❌ No music playing")
-
             elif text.startswith('/current'):
                 if chat_id in playing_chats:
                     info = playing_chats[chat_id]
                     await send_message(chat_id, f"🎵 Currently playing: {info['title']}")
                 else:
                     await send_message(chat_id, "❌ No music playing")
-
     except Exception as e:
         logger.error(f"Error processing update: {e}")
 
@@ -178,4 +171,3 @@ if __name__ == '__main__':
 
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
-                    
