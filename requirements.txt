@@ -1,0 +1,7 @@
+
+Flask==2.3.3
+pyrogram==2.0.106
+TgCrypto==1.2.5
+py-tgcalls==0.9.7
+yt-dlp==2023.9.24
+requests==2.31.0
