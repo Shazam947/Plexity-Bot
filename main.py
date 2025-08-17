@@ -3,7 +3,7 @@ import logging
 from flask import Flask, request
 from pyrogram import Client
 from pytgcalls import PyTgCalls
-from pytgcalls.types import AudioPiped
+from pytgcalls.types.input_stream import InputStream, AudioPiped  # Updated import
 import requests
 from jiosaavn import JioSaavn
 import asyncio
@@ -51,11 +51,13 @@ class MusicBot:
             if not audio_info:
                 return False
 
+            # Use InputStream with AudioPiped (new style)
             await pytgcalls.join_group_call(
                 chat_id,
-                AudioPiped(audio_info['url'])
+                InputStream(
+                    AudioPiped(audio_info['url'])
+                )
             )
-
             playing_chats[chat_id] = {
                 'title': audio_info['title'],
                 'duration': audio_info['duration'],
